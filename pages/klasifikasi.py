@@ -8,10 +8,12 @@ import numpy as np
 import os
 import gdown
 
+MODEL_DIR = "models"
 MODEL_FILENAME = "convnext-tiny2(BS_ 32, Epoch_ 50, lr_ 0.00005, DO_ 0.5).pth"
-MODEL_PATH = MODEL_FILENAME
+MODEL_PATH = os.path.join(MODEL_DIR, MODEL_FILENAME)
 GOOGLE_DRIVE_FILE_ID =  "1JTIflHpW6fO37R2uhaDc0RYHkizhF4SV"
 
+os.makedirs(MODEL_DIR, exist_ok=True)
 # ── Class Labels ─────────────────────────────────────────────────────────────
 CLASS_NAMES = ["BrownSpot", "Healthy", "Hispa", "LeafBlast"]
 
@@ -26,8 +28,8 @@ CLASS_META = {
 @st.cache_resource
 def load_model():
     # Buat folder models jika belum ada
-    if not os.path.exists(MODEL_FILENAME):
-        os.makedirs(MODEL_FILENAME)
+    if not os.path.exists(MODEL_DIR):
+        os.makedirs(MODEL_DIR)
 
     # Download jika file belum ada
     if not os.path.exists(MODEL_PATH):
@@ -35,6 +37,8 @@ def load_model():
             url = f"https://drive.google.com/uc?id={GOOGLE_DRIVE_FILE_ID}"
             try:
                 gdown.download(url, MODEL_PATH, quiet=False)
+                if not os.path.isfile(MODEL_PATH):
+                    raise FileNotFoundError("Model gagal didownload")
             except Exception as e:
                 st.error(f"Gagal mengunduh model: {e}")
                 st.stop()
