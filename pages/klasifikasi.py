@@ -8,7 +8,7 @@ import numpy as np
 import os
 import gdown
 
-MODEL_FILENAME = "convnext-tiny2(BS_ 32, Epoch_ 50, lr_ 0.00005, DO_ 0.5).pth"
+MODEL_FILENAME = "convnext-tiny2(BS: 32, Epoch: 50, lr: 0.00005, DO: 0.5).pth"
 MODEL_PATH = MODEL_FILENAME
 GOOGLE_DRIVE_FILE_ID =  "1JTIflHpW6fO37R2uhaDc0RYHkizhF4SV"
 
